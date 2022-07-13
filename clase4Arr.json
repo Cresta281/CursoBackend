@@ -1,0 +1,20 @@
+{
+    "bebidas": [
+        {
+            "id": 1,
+            "titulo": "Gin",
+            "precio": 300
+            
+        },
+        {
+            "id": 1,
+            "titulo": "Fernet",
+            "precio": 500
+        },
+        {
+            "id": 3,
+            "titulo": "Aperol",
+            "precio": 200
+        }
+    ]
+}

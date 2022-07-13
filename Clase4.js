@@ -1,5 +1,27 @@
 const fs = require("fs")
+const express = require ('express')
+const app = express()
+const PORT = 8080
 
+const server = app.listen (PORT, () => {
+    console.log(`servidor express escuchando en el puerto ${server.adress().port}`)
+})
+
+app.get('/',(req,res) => {
+    res.send("<h1>Bienvenida Lu a mi server</h1>")
+})
+        fs.readFileSync("clase4Arr.json","utf-8",(data))
+        let productosArray = JSON.parse(data)
+app.get('/productos',(req,res) => {
+        res.send(`<h1> Nuestros Productos ${productosArray} </h1>`)
+})
+
+app.get('/productoRandom',(req,res) => {
+    function randomize(productos) {
+        return Math.floor(Math.random(productos))
+    }
+    res.send(`<h1> Nuestros productos ${randomize(productosArray)}`)
+})
 
 class Productos {
     constructor (nombre, precio, id) {
