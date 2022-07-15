@@ -31,40 +31,66 @@ class Productos {
     }
     async Save(producto) {
    
-        await fs.readFileSync("clase4Arr.json","utf-8",(data))
-        const array = JSON.parse(data)
-        array.bebidas.push(producto)
-        fs.writeFileSync('clase4Arr.json',JSON.stringify(array, null, 2))
+        try {
+            await fs.readFile("clase4Arr.json","utf-8",(data))
+            let array = JSON.parse(data)
+            array.bebidas.push(producto)
+            return fs.writeFile('clase4Arr.json',JSON.stringify(array, null, 2))
+        }
+        catch(err){
+            return console.log(err)
+        }
         
     }
     async getById(number) {
-        await fs.readFileSync("clase4Arr.json","utf-8",(data))
-        const information = JSON.parse(data)
-        const itemId = information.find(information.id == number)
-        return itemId
+       try {
+            await fs.readFile("clase4Arr.json","utf-8",(data))
+            const information = JSON.parse(data)
+            const itemId = information.find(information.id == number)
+            return itemId
+       } 
+       catch(err) {
+            console.log(err)
+        }
     }
     async getAll() {
-        fs.readFileSync("clase4Arr.json","utf-8",(data))
-        const information = JSON.parse(data)
-        return information 
+        try {
+            await fs.readFile("clase4Arr.json","utf-8",(data))
+            const information = JSON.parse(data)
+            return information 
+        }
+        catch(err) {
+            console.log(err)
+        }
+        
     }
     async deleteById(number) {
-        await fs.readFileSync("clase4Arr.json","utf-8",(data))
-        const information = JSON.parse(data)
-        const findId = information.find(information.id == number)
-        const deleteId = information.splice(...findId)
-        return deleteId
+        try {
+            await fs.readFile("clase4Arr.json","utf-8",(data))
+            const information = JSON.parse(data)
+            const findId = information.find(information.id == number)
+            const deleteId = information.splice(...findId)
+            return deleteId
+        }
+        catch(err) {
+            console.log(err)
+        }
     }
     async deleteAll() {
-        await fs.readFileSync("clase4Arr.json","utf-8",(data))
-        let information = JSON.parse(data)
-        information = []
-        fs.writeFileSync('clase4Arr.json',JSON.stringify(information, null, 2))
+        try {
+            await fs.readFileSync("clase4Arr.json","utf-8",(data))
+            let information = JSON.parse(data)
+            information = []
+            fs.writeFileSync('clase4Arr.json',JSON.stringify(information, null, 2))
+        }
+        catch(err) {
+            console.log(err)
+        }
     }
     
 }
 const Fernet = new Productos('Fernet',1200,1)
-Save(Fernet)
+Save(await Fernet)
 getById(1)
 getAll()
 deleteById(1)
