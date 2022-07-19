@@ -1,0 +1,41 @@
+// La estructura del JSON no sería esta
+{
+    "bebidas": [
+        {
+            "id": 1,
+            "titulo": "Gin",
+            "precio": 300
+            
+        },
+        {
+            "id": 1,
+            "titulo": "Fernet",
+            "precio": 500
+        },
+        {
+            "id": 3,
+            "titulo": "Aperol",
+            "precio": 200
+        }
+    ]
+}
+// Se busca que el json sea un array de objetos para poder acceder e iterarlo de forma más óptima. Ejemplo:
+
+[
+    {
+        "id": 1,
+        "titulo": "Gin",
+        "precio": 300
+        
+    },
+    {
+        "id": 1,
+        "titulo": "Fernet",
+        "precio": 500
+    },
+    {
+        "id": 3,
+        "titulo": "Aperol",
+        "precio": 200
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "titulo": "Gin",
+        "precio": 300,
+        "descripcion": "El mejor Gin de la ciudad"
+    },
+    {
+        "id": 1,
+        "titulo": "Fernet",
+        "precio": 500,
+        "descripcion": "Fernet Cordobes"
+    },
+    {
+        "id": 3,
+        "titulo": "Aperol",
+        "precio": 200,
+        "descripcion": "Para preparar tus tragos con sabor a ibupirac xd"
+    }
+]
