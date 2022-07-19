@@ -1,97 +1,107 @@
 const fs = require("fs")
 const express = require ('express')
+const { prototype } = require("events")
+const { info } = require("console")
 const app = express()
 const PORT = 8080
 
 const server = app.listen (PORT, () => {
-    console.log(`servidor express escuchando en el puerto ${server.adress().port}`)
+    console.log(`servidor express escuchando en el puerto ${PORT}`)
 })
 
-app.get('/',(req,res) => {
-    res.send("<h1>Bienvenida Lu a mi server</h1>")
-})
-        fs.readFileSync("clase4Arr.json","utf-8",(data))
-        let productosArray = JSON.parse(data)
-app.get('/productos',(req,res) => {
-        res.send(`<h1> Nuestros Productos ${productosArray} </h1>`)
+app.get('/productos', (req, res) => {
+    let productos = new Productos();
+    let arrayProductos = productos.getAll();
+
+    console.log(arrayProductos);
+    res.send(JSON.stringify({'arrayProductos': arrayProductos}));
 })
 
 app.get('/productoRandom',(req,res) => {
-    function randomize(productos) {
-        return Math.floor(Math.random(productos))
+    let producto = new Productos();
+    let arrayProductos = producto.getAll();
+    function randomize(arrayProductos) {
+        return Math.floor(Math.random(arrayProductos.length))
     }
-    res.send(`<h1> Nuestros productos ${randomize(productosArray)}`)
+
+    let infoProducto = arrayProductos[randomize(arrayProductos)];
+    res.send(JSON.stringify({'infoProducto': infoProducto}))
 })
 
 class Productos {
-    constructor (nombre, precio, id) {
+    constructor (nombre =  '', precio = '', id = '') {
         this.nombre = nombre
         this.precio = precio
         this.id = id
     }
-    async Save(producto) {
-   
+    Save() {
         try {
-            await fs.readFile("clase4Arr.json","utf-8",(data))
-            let array = JSON.parse(data)
-            array.bebidas.push(producto)
-            return fs.writeFile('clase4Arr.json',JSON.stringify(array, null, 2))
+            fs.readFile('clase4Arr.json', 'utf-8', (err, data) => {
+                if (err) {
+                    console.log('Se produjo un error al recuperar la info del archivo');
+                }
+
+                let arrayProductos = JSON.parse(data);
+                
+                let infoNuevoProducto = {"nombre": this.nombre, "precio": this.precio, "id": this.id};
+                arrayProductos.productos.push(infoNuevoProducto);
+                console.log(arrayProductos);
+
+                fs.writeFile('clase4Arr.json', JSON.stringify(arrayProductos, null, 2), () => {
+                    console.log("Se guardo correctamente el producto con ID: " + this.id);
+                })
+            });
+            
+            return this.id;
         }
         catch(err){
             return console.log(err)
         }
-        
     }
-    async getById(number) {
-       try {
-            await fs.readFile("clase4Arr.json","utf-8",(data))
-            const information = JSON.parse(data)
-            const itemId = information.find(information.id == number)
-            return itemId
-       } 
-       catch(err) {
-            console.log(err)
-        }
+    GetById(idProducto) {
+        fs.readFile('clase4Arr.json', 'utf-8', (err, data) => {
+            let arrayProductos = JSON.parse(data);
+            let itemId = arrayProductos.productos.filter(x => x.id == idProducto);
+
+            if (itemId.length == 0) {
+                return null;
+            } else {
+                console.log(itemId)
+                // return itemId;
+            }
+        })
     }
-    async getAll() {
-        try {
-            await fs.readFile("clase4Arr.json","utf-8",(data))
-            const information = JSON.parse(data)
-            return information 
-        }
-        catch(err) {
-            console.log(err)
-        }
-        
+    getAll() {
+        fs.readFile( 'clase4Arr.json', 'utf-8', (err, data) => {
+            let arrayProductos = JSON.parse(data);
+            //console.log(arrayProductos)
+            return arrayProductos;
+        });
     }
-    async deleteById(number) {
-        try {
-            await fs.readFile("clase4Arr.json","utf-8",(data))
-            const information = JSON.parse(data)
-            const findId = information.find(information.id == number)
-            const deleteId = information.splice(...findId)
-            return deleteId
-        }
-        catch(err) {
-            console.log(err)
-        }
+    deleteById(idProducto) {
+        fs.readFile('clase4Arr.json', 'utf-8', (err, data) => {
+            let arrayProductos = JSON.parse(data);
+
+            let arrayProductosFiltrados = arrayProductos.productos.filter(x => x.id != idProducto);
+            arrayProductos.productos = arrayProductosFiltrados
+            fs.writeFile('clase4Arr.json', JSON.stringify(arrayProductos), () => {
+                console.log('Se borro correctamente el producto con ID: ' + idProducto)
+            })
+        })
     }
-    async deleteAll() {
-        try {
-            await fs.readFileSync("clase4Arr.json","utf-8",(data))
-            let information = JSON.parse(data)
-            information = []
-            fs.writeFileSync('clase4Arr.json',JSON.stringify(information, null, 2))
-        }
-        catch(err) {
-            console.log(err)
-        }
+    deleteAll() {
+        fs.readFile('clase4Arr.json', 'utf-8', (err, data) => {
+            let arrayVacio = {};
+            arrayVacio.productos = [];
+
+            fs.writeFile('clase4Arr.json', JSON.stringify(arrayVacio), () => {
+                console.log('Se eliminaron todos los items');
+            })
+        })
     }
-    
 }
-const Fernet = new Productos('Fernet',1200,1)
-Save(await Fernet)
-getById(1)
-getAll()
-deleteById(1)
-deleteAll()
+//Fernet.Save();
+//Fernet.GetById(2);
+//Fernet.getAll()
+//Fernet.deleteById(1);
+//Fernet.deleteAll();
