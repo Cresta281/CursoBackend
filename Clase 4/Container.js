@@ -19,9 +19,9 @@ class Productos {
                 arrayProductos.productos.push(infoNuevoProducto);
                 console.log(arrayProductos);
 
-               fs.writeFile('clase4Arr.json', JSON.stringify(arrayProductos, null, 2), () => {
+               return fs.writeFile('clase4Arr.json', JSON.stringify(arrayProductos, null, 2), () => {
                     console.log("Se guardo correctamente el producto con ID: " + this.id);
-                }) //Aca no puse el await porque en teoria ya esta puesto en la funcion que lo envuelve, nose si es asi (?)
+                })
             });
             
             return this.id;
@@ -44,11 +44,7 @@ class Productos {
         })
     }
     getAll = async() => {
-        await fs.promises.readFile( 'clase4Arr.json', 'utf-8', (err, data) => {
-            let arrayProductos = JSON.parse(data);
-            //console.log(arrayProductos)
-            return (JSON.stringify(arrayProductos));
-        });
+        return await fs.promises.readFile( 'clase4Arr.json', 'utf-8')
     }
     deleteById = async(idProducto) => {
         await fs.promises.readFile('clase4Arr.json', 'utf-8', (err, data) => {
@@ -66,8 +62,8 @@ class Productos {
             let arrayVacio = {};
             arrayVacio.productos = [];
 
-            fs.writeFile('clase4Arr.json', JSON.stringify(arrayVacio), () => {
-                console.log('Se eliminaron todos los items');
+           return fs.writeFile('clase4Arr.json', JSON.stringify(arrayVacio), () => {
+                
             })
         })
     }
@@ -91,6 +87,6 @@ module.exports = Productos
 let Fernet = new Productos ('Lucia', 9999, 4)
 //Fernet.Save();
 //Fernet.getById(4);
-//Fernet.getAll()
+Fernet.getAll()
 //Fernet.deleteById(1);
 //Fernet.deleteAll();

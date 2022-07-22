@@ -8,8 +8,11 @@ const server = app.listen (PORT, () => {
 })
 
 
-const Productos = require('./Container')
+const Productos = require('../Clase 4/Container')
 const data = new Productos('productos.json')
 app.get('/products', (req, res) => {
-    data.getAll().then.getRandom().then((a) => res.send(a))
+    data.getAll().then((a) => res.send(a))
+})
+app.get('/productos/random', (req,res) => {
+    data.getRandom().then((a) => res.send(a))
 })
