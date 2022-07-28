@@ -1,5 +1,4 @@
-{
-  "productos": [
+[
     {
       "nombre": "Jose",
       "precio": 1201,
@@ -15,5 +14,4 @@
       "precio": 600,
       "id": 3
     }
-  ]
-}
+]
