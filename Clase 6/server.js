@@ -7,6 +7,7 @@ const db = 'clase4Arr.json'
 const contenedor = new Productos(db)
 const { auth } = require('../middlewares/auth')
 
+
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
@@ -28,14 +29,13 @@ app.get('/api/productos/:id', (req,res) => {
 app.post('/api/productos', auth, (req, res) => {
     const producto = req.producto
     console.log(producto)
-    res.json({success: true})
-    producto.save().then.getById()
+    producto.save().then.getById().then(() => res.json({success: true}))
 })
 
 app.delete('/api/productos/:id', (req, res) => {
     const id = parseInt(req.params.id)
-    const productoEliminado = contenedor.deleteById(id)
-    res.json(productoEliminado)
+    const productoEliminado = contenedor.deleteById(id).then((a) => res.json(a))
+    return productoEliminado
 })
 
 app.put('/api/productos/:id', (req, res) => {
