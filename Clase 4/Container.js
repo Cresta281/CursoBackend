@@ -7,29 +7,16 @@ class Productos {
         this.id = id
     }
     Save = async() => {
-        try {
-            await fs.promises.readFile('clase4Arr.json', 'utf-8', (err, data) => {
-                if (err) {
-                    console.log('Se produjo un error al recuperar la info del archivo');
-                }
-
-                let arrayProductos = JSON.parse(data);
-                
-                let infoNuevoProducto = {"nombre": this.nombre, "precio": this.precio, "id": this.id};
-                arrayProductos.push(infoNuevoProducto);
-                console.log(arrayProductos);
-
-               
-            });
-            return await fs.writeFile('clase4Arr.json', JSON.stringify(arrayProductos, null, 2), () => {
-                console.log("Se guardo correctamente el producto con ID: " + this.id);
-            })
+        
+        const data = await fs.promises.readFile('clase4Arr.json','utf-8')
+        let arrayProductos = JSON.parse(data)
+        let infoNuevoProducto = {"nombre": this.nombre, "precio": this.precio, "id": this.id}
+        arrayProductos.push(infoNuevoProducto)
+        const nuevaData = await fs.promises.writeFile('clase4Arr.json',JSON.stringify(arrayProductos,null,2))
             
+        return nuevaData
            
-        }
-        catch(err){
-            return console.log(err)
-        }
+        
     }
     getById = async(idProducto) => {
         const data = await fs.promises.readFile('clase4Arr.json', 'utf-8')
@@ -46,24 +33,22 @@ class Productos {
         
     }
     getAll = async() => {
-        return await fs.promises.readFile( 'clase4Arr.json', 'utf-8')
+        const data = await fs.promises.readFile( 'clase4Arr.json', 'utf-8')
+        return data
     }
     deleteById = async(idProducto) => {
         const data = await fs.promises.readFile('clase4Arr.json', 'utf-8')
         let arrayProductos = JSON.parse(data);
-        let arrayProductosFiltrados = async(arrayProductos.filter(x => x.id != idProducto));
-        return await fs.writeFile('clase4Arr.json', JSON.stringify(arrayProductosFiltrados), () => {
-                console.log('Se borro correctamente el producto con ID: ' + idProducto)
-            })
+        let arrayProductosFiltrados = arrayProductos.filter(x => x.id != idProducto);
+        const dataNueva = await fs.promises.writeFile('clase4Arr.json', JSON.stringify(arrayProductosFiltrados))
+        return dataNueva
         
     }
     deleteAll = async() => {
-        await fs.promises.readFile('clase4Arr.json', 'utf-8')
         let arrayVacio = {};
 
-        return await fs.writeFile('clase4Arr.json', JSON.stringify(arrayVacio), () => {
-                
-        })
+        const data = await fs.promises.writeFile('clase4Arr.json', JSON.stringify(arrayVacio))
+        return data
     }
     getRandom = async() => {
         try{
@@ -85,9 +70,9 @@ class Productos {
 }
 module.exports = Productos
 //let Fernet = new Productos ('Lucia', 9999, 4)
-//Fernet.Save();
+//Fernet.Save()
 //Fernet.getById(4);
-//Fernet.deleteById(1);
+//Fernet.deleteById(4)
 //Fernet.deleteAll();
 //Fernet.getRandom().then((a) => console.log(a))
 
