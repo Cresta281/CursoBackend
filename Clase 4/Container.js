@@ -66,7 +66,6 @@ class Productos {
         }
        
     }
-
 }
 module.exports = Productos
 //let Fernet = new Productos ('Lucia', 9999, 4)
