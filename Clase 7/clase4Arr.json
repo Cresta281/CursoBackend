@@ -10,13 +10,13 @@
     "id": 2
   },
   {
-    "nombre": "Lucia",
-    "precio": 9999,
-    "id": 4
+    "nombre": "Cresta",
+    "precio": 600,
+    "id": 3
   },
   {
-    "nombre": "Lucia",
-    "precio": 9999,
-    "id": 3
+    "nombre": "clase4Arr.json",
+    "precio": "",
+    "id": ""
   }
 ]

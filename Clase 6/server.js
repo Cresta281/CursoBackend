@@ -44,18 +44,9 @@ app.delete('/api/productos/:id', (req, res) => {
 })
 
 app.put('/api/productos/:id', (req, res) => {
-    const { numero } = (req.params)
-    const user = contenedor.getById(numero)
-    const { id, nombre, precio } = req.body
-    if(nombre) {
-        user.nombre = nombre
-    }
-    if(precio) {
-        user.precio = precio
-    }
-    if(id) {
-        user.id = id
-    }
+   const { numero } = req.body.id
+   const { nuevaData } = req.body
+    let newData = contenedor.update(numero,nuevaData).then(() => res.send(`usuario ha sido actualizado`))
     
-    return user
+    return newData
 })
