@@ -18,5 +18,10 @@
     "nombre": "Vino",
     "precio": 5510,
     "id": 3
+  },
+  {
+    "nombre": "Gin",
+    "precio": 6000,
+    "id": 10
   }
 ]

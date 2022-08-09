@@ -31,7 +31,7 @@ app.get('/api/productos/:id', (req,res) => {
 })
 
 app.post('/api/productos',(req, res) => {
-    const productos = contenedor.Save(req.body).then(() =>  res.send(`Usuario con el id ${newUser.id} ha sido creado`))
+    const productos = contenedor.Save(req.body).then(() =>  res.send(`Usuario con el id ${req.body.id} ha sido creado`))
    
     return productos
 })
