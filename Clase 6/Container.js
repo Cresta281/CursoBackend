@@ -73,11 +73,11 @@ class Productos {
     }
 }
 module.exports = Productos
-let Fernet = new Productos ('Lucia', 9999, 3)
+//let Fernet = new Productos ('Lucia', 9999, 3)
 //Fernet.Save()
 //Fernet.getById(4);
 //Fernet.deleteById(4)
 //Fernet.deleteAll();
 //Fernet.getRandom().then((a) => console.log(a))
 //Fernet.update(1)
-Fernet.update(3)
+//Fernet.update(3)
