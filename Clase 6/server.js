@@ -31,22 +31,19 @@ app.get('/api/productos/:id', (req,res) => {
 })
 
 app.post('/api/productos',(req, res) => {
-    const newUser = req.body
-    const productos = contenedor.Save(newUser).then(() =>  res.send(`Usuario con el id ${newUser.id} ha sido creado`))
+    const productos = contenedor.Save(req.body).then(() =>  res.send(`Usuario con el id ${newUser.id} ha sido creado`))
    
     return productos
 })
 
 app.delete('/api/productos/:id', (req, res) => {
-    const { id } = req.params
-    let productoEliminado = contenedor.deleteById(id).then(() => res.send(`Usuario ha sido eliminado`))
+    let productoEliminado = contenedor.deleteById(req.params.id).then(() => res.send(`Usuario ha sido eliminado`))
     return productoEliminado
 })
 
 app.put('/api/productos/:id', (req, res) => {
-   const { numero } = req.body.id
-   const { nuevaData } = req.body
-    let newData = contenedor.update(numero,nuevaData).then(() => res.send(`usuario ha sido actualizado`))
+    
+    let newData = contenedor.update(req.params.id,req.body).then(() => res.send(`usuario ha sido actualizado`))
     
     return newData
 })

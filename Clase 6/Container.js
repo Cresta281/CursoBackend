@@ -6,13 +6,12 @@ class Productos {
         this.precio = precio
         this.id = id
     }
-    Save = async() => {
+    Save = async(nuevoProducto) => {
         
         const data = await fs.promises.readFile('clase4Arr.json','utf-8')
         let arrayProductos = JSON.parse(data)
-        let infoNuevoProducto = {"nombre": this.nombre, "precio": this.precio, "id": this.id}
-        arrayProductos.push(infoNuevoProducto)
-        const nuevaData = await fs.promises.writeFile('clase4Arr.json',JSON.stringify(arrayProductos,null,2))
+        let infoNuevoProducto = [...arrayProductos,nuevoProducto]
+        const nuevaData = await fs.promises.writeFile('clase4Arr.json',JSON.stringify(infoNuevoProducto,null,2))
             
         return nuevaData
            
@@ -64,12 +63,11 @@ class Productos {
        
     }
     update = async(numero, nuevaData) => {
-        const data = await this.getById(numero)
-        console.log(data)
-        const dataEliminada = await this.deleteById(numero)
-        const dataActualizada = await this.Save(nuevaData)
-        console.log(dataActualizada)
-        return dataActualizada
+        await this.deleteById(numero)
+
+        await this.Save(nuevaData)
+
+        return {message: `El objeto con el id: ${numero} fue actualizado correctamente`}
     }
 }
 module.exports = Productos
