@@ -10,5 +10,15 @@ html(lang="en")
             input(type="text",name="nombre",id="nombre")
             input(type="text",name="precio",id="precio")
             input(type="text",name="id",id="id")
-            input(type="submit",name="submit",id="submit")
-        
+            input(type="submit",name="submit",id="submit") 
+        div
+            table
+                tr
+                    th='Nombre'
+                    th='Precio'
+                    th='Foto'
+                    each producto in productos
+                        tr
+                            td=producto.nombre
+                            td=producto.precio
+                            td=producto.id
